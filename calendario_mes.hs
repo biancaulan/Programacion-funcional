@@ -141,8 +141,15 @@ ene1 a = mod (a + div (a-1) 4 - div (a-1) 100 + div (a-1) 400) 7
 -- pdias :: Int -> [Int]
 -- pdias a  devuelve una lista con 12 dias que son los dias de la
 --          semana en que comienza cada mes del a�o a siendo 
---          1=lunes, 2=martes, ..., 6=sabado y 7=domingo
--- Ejemplo: pdias 2019 es [2,5,5,1,3,6,1,4,7,2,5,7]
+--          1=lunes, 2=martes, ..., 6=sabado y 0=domingo
+-- Ejemplo: pdias 2019 es [2,5,5,1,3,6,1,4,0,2,5,0]
+pdias :: Int -> [Int]
+pdias a = map (`mod` 7) (scanl addDays (ene1 a) monthLengths)
+  where
+    monthLengths = [31, 28 + if isLeapYear a then 1 else 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    addDays current days = current + days
+    isLeapYear year = year `mod` 4 == 0 && (year `mod` 100 /= 0 || year `mod` 400 == 0)
+
 
 
 nombresmeses :: [String]
