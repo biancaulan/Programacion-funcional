@@ -99,10 +99,23 @@ printDibujo dib = do
 -- Define constantes y funciones para calcular y dibujar los meses 
 ------------------------------------------------------------------
 
--- meses ::  Year -> [(String, Year, Int, Int)]
+
 -- meses n devuelve una lista de 12 elementos con los datos 
 --         relevantes de cada uno de los meses del a�o n: 
 --         (nombre_mes, n, primer_d�a_mes, longitud_mes)
+meses ::  Year -> [(String, Year, Int, Int)]
+meses year = [ (nombreMes i, year, firstDay year i, longitud year i) | i <- [1..12] ]
+  where 
+    monthLengths = [31, 28 + if isLeapYear year then 1 else 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    
+    nombreMes :: Int -> String
+    nombreMes i = nombresmeses !! (i - 1)
+    
+    firstDay :: Int -> Int -> Int
+    firstDay year i = (pdias year) !! (i - 1)
+
+    longitud :: Int -> Int -> Int
+    longitud year i = monthLengths !! (i - 1)  
 
 monthTitle :: String -> Year -> String
 monthTitle month year = month ++ " " ++ (show year) ++ (rellenarConVacios (length (month ++ " " ++ (show year))))
@@ -160,7 +173,9 @@ pdias a = map (`mod` 7) (scanl addDays (ene1 a) monthLengths)
   where
     monthLengths = [31, 28 + if isLeapYear a then 1 else 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     addDays current days = current + days
-    isLeapYear year = year `mod` 4 == 0 && (year `mod` 100 /= 0 || year `mod` 400 == 0)
+
+isLeapYear :: Int -> Bool
+isLeapYear year = year `mod` 4 == 0 && (year `mod` 100 /= 0 || year `mod` 400 == 0)
 
 
 
