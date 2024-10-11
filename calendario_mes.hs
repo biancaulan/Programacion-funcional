@@ -105,28 +105,40 @@ printDibujo dib = do
 --         (nombre_mes, n, primer_d�a_mes, longitud_mes)
 
 monthTitle :: String -> Year -> String
-monthTitle month year = month ++ " " ++ (show year)
+monthTitle month year = month ++ " " ++ (show year) ++ (rellenarConVacios (length (month ++ " " ++ (show year))))
 
 monthHeaders :: Linea
 monthHeaders = "Lu Ma Mi Ju Vi Sa Do"
 
 monthDays :: Int -> Int -> [Linea]
 monthDays startWeekDay lastDay = 
-    aux startWeekDay lastDay 1 []
+    aux lastDay 1 startWeekDay
   where 
-  aux :: Int -> Int -> Int -> [Linea] -> [Linea]
-  aux start last currentDay response
-   | currentDay > last = []
-   | currentDay < start = aux start last (currentDay + 1) ("   " : response) 
-   | otherwise = [week currentDay (currentDay + 6) startWeekDay last] ++ aux start last (currentDay + 7) []
+  aux :: Int -> Int -> Int -> [Linea]
+  aux lastDayOfMonth firstDayOfWeek startWeekDay
+   | firstDayOfWeek > lastDayOfMonth = []
+   | firstDayOfWeek == 1 = [week firstDayOfWeek (firstDayOfWeek + (6 - startWeekDay)) startWeekDay lastDayOfMonth] ++ aux lastDayOfMonth (firstDayOfWeek + (7 - startWeekDay)) startWeekDay
+   | otherwise = [week firstDayOfWeek (firstDayOfWeek + 6) startWeekDay lastDayOfMonth] ++ aux lastDayOfMonth (firstDayOfWeek + 7) startWeekDay
+  
+  -- Dado un día, lo convierte a string de 2 carácteres
+  -- EJ1: 1 ==> "01"
+  -- EJ2: 14 ==> "14"
   formatDay :: Int -> String
   formatDay day = if day < 10 then "0" ++ show day else show day
-  week :: Int -> Int -> Int -> Int -> Linea
-  week start end weekDay lastMonthDay = init (foldl (++) "" [formatDay x ++ " " | x<- [start..end], x <= lastMonthDay])
 
+  -- Genera una semana con límite del último día del mes
+  week :: Int -> Int -> Int -> Int -> Linea
+  week start end startWeekDay lastMonthDay
+   | start == 1 = (rellenarConVacios (startWeekDay*3)) ++ (init (foldl (++) "" [formatDay x ++ " " | x<- [start..end], x <= lastMonthDay]))
+   | end > lastMonthDay = (init (foldl (++) "" [formatDay x ++ " " | x<- [start..end], x <= lastMonthDay])) ++ (rellenarConVacios ((end - lastMonthDay)*3))
+   | otherwise = (init (foldl (++) "" [formatDay x ++ " " | x<- [start..end], x <= lastMonthDay]))
+
+-- Añadir espacios para acomodar el día inicial de la semana
+rellenarConVacios :: Int -> String
+rellenarConVacios n = replicate n '#' -- ################### 
 
 dibujomes ::(String, Year, Int, Int) -> Dibujo
-dibujomes (monthName, year, firstWeekDay, monthTotalDays) = [ monthTitle monthName year, monthHeaders ] ++ monthDays firstWeekDay monthTotalDays
+dibujomes (monthName, year, firstWeekDay, monthTotalDays) = [ monthTitle monthName year, monthHeaders ] ++ monthDays 3 monthTotalDays
 -- dibujomes (nm,a,pd,lm) devuelve un dibujo de dimensiones 10x25 
 -- formado por el titulo y la tabla del mes de nombre nm y a�o a.
 -- Necesita como par�metros: pd=primer dia y lm=longitud del mes.
