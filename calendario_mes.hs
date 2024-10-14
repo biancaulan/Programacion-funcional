@@ -37,10 +37,15 @@ printDibujo dib = do
 --  Define las siguientes funciones sobre dibujos:
 ---------------------------------------------------
 
--- dibEsCorrecto :: Dibujo -> Bool   
+dibEsCorrecto :: Dibujo -> Bool   
 -- comprueba que las lineas de un dibujo tienen igual longitud,
 -- debe dar un mensaje de error si el dibujo es vac�o ([]).
-
+dibEsCorrecto [] = error "Dibujo is empty"
+dibEsCorrecto dibujo = numIguales (map (length) dibujo) -- map genera una lista de Int que son la longitud de cada fila del dibujo
+  where 
+    -- Devuelve True si todos los valores son iguales
+    numIguales:: [Int] -> Bool 
+    numIguales lista = foldl (&&) True [x == (lista !! 0) | x<-lista]
 
 -- listaDibCorrectos ::[Dibujo] -> Bool 
 -- comprueba que los dibujos de la lista dada son correctos y 
