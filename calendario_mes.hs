@@ -52,14 +52,16 @@ dibEsCorrecto dibujo = numIguales (map (length) dibujo) -- map genera una lista 
 -- ademas tienen todos las mismas dimensiones.
 
 
--- alto :: Dibujo -> Int   
+alto :: Dibujo -> Int   
 -- Pre: dib es un dibujo correcto.
 -- alto dib da la altura de dib.
+alto dib = length dib -- la altura del dibujo es la misma que la cantidad de elementos que tiene la lista del dibujo
 
 
--- ancho :: Dibujo -> Int
+ancho :: Dibujo -> Int
 -- Pre: dib es un dibujo correcto.
 -- ancho dib da la anchura de dib.
+ancho dib = length (dib !! 0) -- la anchura de un dibujo correcto siempre va a tener la misma longitud en cada elemento de la lista, por lo que en ancho será la longitud del primer elemento
 
 
 -- sobre :: Dibujo -> Dibujo -> Dibujo 
