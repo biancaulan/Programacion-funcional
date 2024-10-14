@@ -91,11 +91,11 @@ extender [] = error "Dibujo is empty"
 extender s = foldl (alLado) ["","","","","","",""] s
 
 
--- dibBlanco :: (Int,Int) -> Dibujo
+dibBlanco :: (Int,Int) -> Dibujo
 -- Precondicion: al>0 && an>0.
 -- dibBlanco (al,an) devuelve el dibujo de caracteres blancos con 
 --                   altura al y anchura an
-
+dibBlanco (al, an) = [rellenarConVacios an | _<-[0..(al - 1)]]
 
 -- bloque :: Int -> [Dibujo] -> Dibujo
 -- bloque n lisDib es el dibujo formado al agrupar de n en n los
