@@ -76,11 +76,12 @@ alLado :: Dibujo -> Dibujo -> Dibujo
 alLado d1 d2 = [(d1 !! i) ++ "     " ++ (d2 !! i) | i<-[0..((length d1)-1)]]
 
 
--- apilar :: [Dibujo] -> Dibujo
+apilar :: [Dibujo] -> Dibujo
 -- apila s da el dibujo obtenido apilando todos los elementos de s
 --         (el primero de s queda en la cima de la pila).
 -- Si s no es una lista de dibujos correctos debe dar error.
-
+apilar [] = error "Dibujo is empty"
+apilar s = foldl (++) [] (map (++ [""]) s) 
 
 -- extender :: [Dibujo] -> Dibujo
 -- extiende s da el dibujo obtenido al extender todos los elementos 
