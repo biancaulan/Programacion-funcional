@@ -70,9 +70,10 @@ sobre :: Dibujo -> Dibujo -> Dibujo
 sobre d1 d2 = d1 ++ [""] ++ d2
 
 
--- alLado :: Dibujo -> Dibujo -> Dibujo   
+alLado :: Dibujo -> Dibujo -> Dibujo   
 -- Precondicion: los dibujos d1 y d2 tienen la misma altura.
 -- alLado d1 d2 da un dibujo con d1 a la izquierda de d2.
+alLado d1 d2 = [(d1 !! i) ++ "     " ++ (d2 !! i) | i<-[0..((length d1)-1)]]
 
 
 -- apilar :: [Dibujo] -> Dibujo
