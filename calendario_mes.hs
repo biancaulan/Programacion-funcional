@@ -97,14 +97,16 @@ dibBlanco :: (Int,Int) -> Dibujo
 --                   altura al y anchura an
 dibBlanco (al, an) = [rellenarConVacios an | _<-[0..(al - 1)]]
 
--- bloque :: Int -> [Dibujo] -> Dibujo
+bloque :: Int -> [Dibujo] -> Dibujo
 -- bloque n lisDib es el dibujo formado al agrupar de n en n los
 --               dibujos de lisDib, extender cada sublista
 --               y luego apilar los resultados.
-
+bloque n lisDib =  apilar (map (extender) (groupN n lisDib)) -- primero extender, luego apilar
 
 -- otras funciones auxiliares sobre dibujos que se necesiten:
-
+groupN :: Int -> [a] -> [[a]]
+groupN _ [] = []
+groupN n xs = take n xs : groupN n (drop n xs)
 
 
 ------------------------------------------------------------------  
