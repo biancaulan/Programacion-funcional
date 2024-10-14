@@ -83,10 +83,12 @@ apilar :: [Dibujo] -> Dibujo
 apilar [] = error "Dibujo is empty"
 apilar s = foldl (++) [] (map (++ [""]) s) 
 
--- extender :: [Dibujo] -> Dibujo
+extender :: [Dibujo] -> Dibujo
 -- extiende s da el dibujo obtenido al extender todos los elementos 
 --            de s (el primero de s queda el m�s a la izquierda).
 -- Si s no es una lista de dibujos correctos debe dar error.
+extender [] = error "Dibujo is empty"
+extender s = foldl (alLado) ["","","","","","",""] s
 
 
 -- dibBlanco :: (Int,Int) -> Dibujo
