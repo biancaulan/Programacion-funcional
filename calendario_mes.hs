@@ -64,9 +64,10 @@ ancho :: Dibujo -> Int
 ancho dib = length (dib !! 0) -- la anchura de un dibujo correcto siempre va a tener la misma longitud en cada elemento de la lista, por lo que en ancho será la longitud del primer elemento
 
 
--- sobre :: Dibujo -> Dibujo -> Dibujo 
+sobre :: Dibujo -> Dibujo -> Dibujo 
 -- Precondicion: los dibujos d1 y d2 tienen la misma anchura.
 -- sobre d1 d2 pone el dibujo d1 sobre el dibujo d2.
+sobre d1 d2 = d1 ++ [""] ++ d2
 
 
 -- alLado :: Dibujo -> Dibujo -> Dibujo   
@@ -125,7 +126,7 @@ meses year = [ (nombreMes i, year, firstDay year i, longitud year i) | i <- [1..
     longitud year i = monthLengths !! (i - 1)  
 
 monthTitle :: String -> Year -> String
-monthTitle month year = month ++ " " ++ (show year) ++ (rellenarConVacios (length (month ++ " " ++ (show year))))
+monthTitle month year = month ++ " " ++ (show year) ++ (rellenarConVacios (20 - length (month ++ " " ++ (show year))))
 
 monthHeaders :: Linea
 monthHeaders = "Lu Ma Mi Ju Vi Sa Do"
