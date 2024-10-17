@@ -164,7 +164,7 @@ monthDays startWeekDay lastDay
 
 -- Añadir espacios para acomodar el día inicial de la semana
 rellenarConVacios :: Int -> String
-rellenarConVacios n = replicate n '#' -- ################### 
+rellenarConVacios n = replicate n ' ' -- ################### Para cambiar el caracter del relleno
 
 dibujomes ::(String, Year, Int, Int) -> Dibujo
 dibujomes (monthName, year, firstWeekDay, monthTotalDays) = [ monthTitle monthName year, monthHeaders ] ++ monthDays firstWeekDay monthTotalDays
