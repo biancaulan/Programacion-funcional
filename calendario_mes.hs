@@ -25,13 +25,13 @@ printDibujo dib = do
                    (putStr . concat . map (++"\n")) dib
 
 -- Imprime, con un numero de columnas, el calendario de un a�o: 
--- printCalendario :: Columna ->  Year -> IO()
--- printCalendario c a = printDibujo (calendario c a)
+printCalendario :: Columna ->  Year -> IO()
+printCalendario c a = printDibujo (calendario c a)
 
 
 -- Dibujo de un calendario (en c columnas) de un a�o dado:
--- calendario :: Columna -> Year -> Dibujo   
--- calendario c  =  bloque c . map dibujomes . meses
+calendario :: Columna -> Year -> Dibujo   
+calendario c  =  bloque c . map dibujomes . meses
 
 ---------------------------------------------------
 --  Define las siguientes funciones sobre dibujos:
