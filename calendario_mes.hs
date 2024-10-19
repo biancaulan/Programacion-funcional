@@ -1,9 +1,9 @@
 ------------------------------------------------------------------
 --  PRACTICA: CALENDARIO           --               PF  2024-2025
 
---  Num. del equipo registrado en la egela: E_
--- Apellidos del primer integrante:
--- Apellidos del segundo integrante:  
+--  Num. del equipo registrado en la egela: E_9
+-- Apellidos del primer integrante: Ulan Rosca, Bianca
+-- Apellidos del segundo integrante:  Vázquez López, Eneko
 ------------------------------------------------------------------
 
 -- Llamada principal es:  printCalendario c n 
