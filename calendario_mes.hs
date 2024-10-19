@@ -47,9 +47,12 @@ dibEsCorrecto dibujo = numIguales (map (length) dibujo) -- map genera una lista 
     numIguales:: [Int] -> Bool 
     numIguales lista = foldl (&&) True [x == (lista !! 0) | x<-lista]
 
--- listaDibCorrectos ::[Dibujo] -> Bool 
+listaDibCorrectos ::[Dibujo] -> Bool 
 -- comprueba que los dibujos de la lista dada son correctos y 
 -- ademas tienen todos las mismas dimensiones.
+listaDibCorrectos [] = error "La lista de dibujos está vacía"
+listaDibCorrectos (d:ds) = 
+    all (\dib -> dibEsCorrecto dib && alto dib == alto d && ancho dib == ancho d) ds
 
 
 alto :: Dibujo -> Int   
